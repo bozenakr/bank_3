@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController as C;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('admin/customers')->name('customers-')->group(function () {
+    Route::get('/', [C::class, 'index'])->name('index');
+
+    Route::get('/create', [C::class, 'create'])->name('create');
+    Route::post('/create', [C::class, 'store'])->name('store');
+
+    Route::get('/edit/{customer}', [C::class, 'edit'])->name('edit');
+    Route::put('/edit/{customer}', [C::class, 'update'])->name('update');
+
+    Route::get('/deposit/{customer}', [C::class, 'showDeposit'])->name('show-deposit');
+    Route::put('/deposit/{customer}', [C::class, 'deposit'])->name('deposit');
+
+    Route::get('/withdraw/{customer}', [C::class, 'showWithdraw'])->name('show-withdraw');
+    Route::put('/withdraw/{customer}', [C::class, 'withdraw'])->name('withdraw');
+
+    Route::delete('/delete/{customer}', [C::class, 'destroy'])->name('delete');
 });
 
-Auth::routes();
+//disable register kai yra seeder su false
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
