@@ -30,6 +30,7 @@ Route::prefix('admin/customers')->name('customers-')->group(function () {
     Route::put('/withdraw/{customer}', [C::class, 'withdraw'])->name('withdraw');
 
     Route::delete('/delete/{customer}', [C::class, 'destroy'])->name('delete');
+    // Route::get('/login', [C::class, 'showLogin'])->name('show-login');
 });
 
 //disable register kai yra seeder su false

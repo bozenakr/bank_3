@@ -226,10 +226,17 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        if ($customer->balance == 0){
-            $customer->delete();
-            return redirect()->route('customers-index')->with('ok', 'Account successfully deleted');
-            }
-         return redirect()->back()->with('no', `Account can't be deleted, balance is not 0`);
+        if ($customer->balance > 0){
+            return redirect()->back()->with('no', `Account can't be deleted, balance is not 0`);
+        }
+        $customer->delete();
+        return redirect()->back()->with('ok', 'Account successfully deleted');
     }
+
+
+    //     public function logout(Request $request)
+    // {
+    //     auth()->logout();
+    //     return redirect()->route('show-login');
+    // }
 }

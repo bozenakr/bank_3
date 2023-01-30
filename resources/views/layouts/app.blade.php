@@ -33,7 +33,7 @@
             {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
             <!-- Left Side Of Navbar -->
             <div class="header-menu">
-                <img class="logo" src="../../public/assets/logoIdea.jpg" alt="logo">
+                <img class="logo" src="/assets/logoIdea.jpg" alt="logo">
                 <a class="header-link" href="{{route('customers-index')}}">Client list</a>
                 <a class="header-link" href="{{route('customers-create')}}">New account</a>
             </div>
@@ -42,11 +42,11 @@
 
             <!-- Authentication Links -->
             @guest
-            @if (Route::has('login'))
+            {{-- @if (Route::has('login'))
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
             </li>
-            @endif
+            @endif --}}
 
             @if (Route::has('register'))
             <li class="nav-item">
@@ -57,21 +57,20 @@
             </a>
 
             <!-- Right Side Of Navbar -->
-            <div> Hello, {{ Auth::user()->name }}!</div>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                <a class="btn btn-logout" href="{{ route('logout') }}" onclick="event.preventDefault();
+            <div class="flex">
+                <div class="header-user"> Hello, {{ Auth::user()->name }}!</div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    <a class="btn btn-logout" href="{{ route('login') }}" onclick="event.preventDefault();
 
                 document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-                @csrf
+                        {{ __('Logout') }}
+                    </a>
+            </div>
+            @csrf
             </form>
     </header>
     @endguest
-    </ul>
-    </div>
-    </div>
-    </nav>
+
 
     <main class="py-4">
         @include('layouts.messages')
