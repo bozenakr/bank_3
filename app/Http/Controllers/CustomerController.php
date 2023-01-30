@@ -73,8 +73,8 @@ class CustomerController extends Controller
                 $customer = new Customer;
                 $customer->name = $request->name;
                 $customer->surname = $request->surname;
-                $customer->iban= 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999);
                 $customer->personal_id = $request->personal_id;
+                $customer->iban = 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999);
                 $customer->balance = 0;
         
                 $customer->save();
@@ -113,7 +113,7 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Customer $customer)
-    {
+{
         $validator = Validator::make(
             $request->all(),
             [
@@ -141,7 +141,7 @@ class CustomerController extends Controller
                 
                 $customer->name = $request->name;
                 $customer->surname = $request->surname;
-                $customer->iban = $request->iban;
+                $customer->iban = $customer->iban;
                 $customer->personal_id = $request->personal_id;
                 $customer->balance = $customer->balance;
         
@@ -165,8 +165,8 @@ class CustomerController extends Controller
             'naujaSuma' => 'numeric|min:0.01',
             ],
             [
-                'naujaSuma.numeric' => 'Please enter numbers',
-                'naujaSuma.min' => 'Please enter numbers greater than 0',
+                'naujaSuma.numeric' => 'Please enter number',
+                'naujaSuma.min' => 'Please enter number greater than 0',
                
             ]);
 
@@ -196,8 +196,8 @@ class CustomerController extends Controller
             'naujaSuma' => 'numeric|min:0.01',
             ],
             [
-                'naujaSuma.numeric' => 'Please enter numbers',
-                'naujaSuma.min' => 'Please enter numbers greater than 0',
+                'naujaSuma.numeric' => 'Please enter number',
+                'naujaSuma.min' => 'Please enter number greater than 0',
                
             ]);
 
@@ -228,9 +228,10 @@ class CustomerController extends Controller
     {
         if ($customer->balance > 0){
             return redirect()->back()->with('no', `Account can't be deleted, balance is not 0`);
+        } else {
+            $customer->delete();
+            return redirect()->back()->with('ok', 'Account successfully deleted');
         }
-        $customer->delete();
-        return redirect()->back()->with('ok', 'Account successfully deleted');
     }
 
 

@@ -22,19 +22,19 @@
                 <label>Personal ID</label>
                 <input class="input" type="text" name="personal_id" value="{{$customer->personal_id}}" required>
             </div>
-            <div class="flex">
+            {{-- <div class="flex">
                 <label>Iban</label>
                 <input class="input" type="text" name="personal_id" style="background:lightgrey" readonly value="{{$customer->iban}}">
-            </div>
+    </div> --}}
 
 
-            <div class="flex-center">
-                <button type="submit" class="btn">Save changes</button>
-            </div>
-            @csrf
-            @method('put')
-        </form>
+    <div class="flex-center">
+        <button type="submit" class="btn">Save changes</button>
     </div>
+    @csrf
+    @method('put')
+    </form>
+</div>
 </div>
 </div>
 
