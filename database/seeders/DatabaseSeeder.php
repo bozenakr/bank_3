@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Saulius',
             'surname' => 'Bebraitis',
             'iban' => 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999),
-            'personal_id' => '38502141545',
+            'personal_id' => '38012120000',
             'balance' => 0.00,
         ]);
             DB::table('customers')->insert([
@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Tomas',
             'surname' => 'Bebraitis',
             'iban' => 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999),
-            'personal_id' => '38502141545',
+            'personal_id' => '37501211694',
             'balance' => 0.00,
         ]);
     }
