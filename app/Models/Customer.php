@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
+
+    const SORT = [
+        'asc_name' => 'Name A-Z',
+        'desc_name' => 'Name Z-A',
+        'asc_surname' => 'Surname A-Z',
+        'desc_surname' => 'Surname Z-A',
+        'asc_balance' => 'Balance 0-9',
+        'desc_balance' => 'Balance 9-0'
+
+    ];
+
+    const FILTER = [
+        'balanceZero' => 'Balance = 0',
+        'balanceNotZero' => 'Balance > 0'
+    ];
+
+    const PER_PAGE = [
+        'all', 5, 12, 21, 34
+    ];
 }

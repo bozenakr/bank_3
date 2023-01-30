@@ -17,11 +17,49 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all()->sortBy('name')->sortBy('surname');
+        // $customers = Customer::all()->sortBy('name')->sortBy('surname');
+
+        $perPageShow = in_array($request->per_page, Customer::PER_PAGE) ? $request->per_page : 'all';
+
+        $customers = Customer::where('id', '>', 0);
+
+        $customers = match($request->sort ?? '') {
+            'asc_name' => $customers->orderBy('name')->orderBy('surname'),
+            'desc_name' => $customers->orderBy('name', 'desc')->orderBy('surname', 'desc'),
+            'asc_surname' => $customers->orderBy('surname')->orderBy('name'),
+            'desc_surname' => $customers->orderBy('surname', 'desc')->orderBy('name', 'desc'),
+            'asc_balance' => $customers->orderBy('balance'),
+            'desc_balance' => $customers->orderBy('balance', 'desc'),
+            default => $customers->orderBy('surname')->orderBy('name')
+        };
+
+        $customers = match($request->filter ?? '') {
+            'balanceZero' => Customer::where('balance', '=', '0'),
+            'balanceNotZero' => Customer::where('balance', '>', '0'),
+            default => Customer::where('id', '>', 0)
+        };
+
+
+            if( $perPageShow == 'all') {
+                $customers = $customers->get();
+            } else {
+                $customers = $customers->paginate($perPageShow)->withQueryString();
+            }
+        
+
         return view('back.index', [
-            'customers' => $customers
+            'customers' => $customers,
+
+            'sortSelect' => Customer::SORT,
+            'sortShow' => isset(Customer::SORT[$request->sort]) ? $request->sort : '',
+
+            'filterSelect' => Customer::FILTER,
+            'filterShow' => isset(Customer::FILTER[$request->filter]) ? $request->filter : '',
+            
+            'perPageSelect' => Customer::PER_PAGE,
+            'perPageShow' => $perPageShow
         ]);
     }
 
@@ -58,8 +96,8 @@ class CustomerController extends Controller
                 'surname.min' => 'Please enter at least 3 characters',
                 'surname.alpha' => 'Please enter correct surname',
                 'personal_id.required' => 'Field can not be empty',
-                'personal_id.regex' => `Id doesn't exist`,
-                'personal_id.integer' => `Id doesn't exist, please enter numbers only`,
+                'personal_id.regex' => 'Id doesn`t exist',
+                'personal_id.integer' => 'Id doesn`t exist, please enter numbers only',
                 'personal_id.unique' => 'Account with this ID already exists',
 
             ]);
@@ -129,8 +167,8 @@ class CustomerController extends Controller
                 'surname.min' => 'Please enter at least 3 characters',
                 'surname.alpha' => 'Please enter correct surname',
                 'personal_id.required' => 'Field can not be empty',
-                'personal_id.regex' => `Id doesn't exist`,
-                'personal_id.integer' => `Id doesn't exist, please enter numbers only`,
+                'personal_id.regex' => 'Id doesn`t exist',
+                'personal_id.integer' => 'Id doesn`t exist, please enter numbers only',
 
             ]);
             
@@ -226,12 +264,11 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        if ($customer->balance > 0){
-            return redirect()->back()->with('no', `Account can't be deleted, balance is not 0`);
-        } else {
+        if ($customer->balance == 0){
             $customer->delete();
-            return redirect()->back()->with('ok', 'Account successfully deleted');
+            return redirect()->route('customers-index')->with('ok', 'Account successfully deleted');
         }
+        return redirect()->back()->with('no', 'Account can`t be deleted, balance is not 0');
     }
 
 

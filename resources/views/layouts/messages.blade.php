@@ -1,7 +1,7 @@
 {{-- <div class="container"> --}}
 @if($errors)
-@foreach ($errors->all() as $message)
-<div class="container">
+<div class="container-alerts">
+    @foreach ($errors->all() as $message)
     <div class="hide">
         <div class="alert alert-danger" role="alert">
             {{ $message }}
@@ -11,7 +11,8 @@
     </div>
 
     @if(Session::has('ok'))
-    <div class="container">
+    <div class="container-alerts">
+
         <div class="hide">
             <div class="alert alert-success" role="alert">
                 {{ Session::get('ok') }}
@@ -21,7 +22,8 @@
     @endif
 
     @if(Session::has('no'))
-    <div class="container">
+    <div class="container-alerts">
+
         <div class="hide">
             <div class="alert alert-danger" role="alert">
                 {{ Session::get('no') }}

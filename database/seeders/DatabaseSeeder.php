@@ -84,6 +84,41 @@ class DatabaseSeeder extends Seeder
             'personal_id' => '37501211694',
             'balance' => 0.00,
         ]);
+            DB::table('customers')->insert([
+            'name' => 'Rasa',
+            'surname' => 'Rasaitė',
+            'iban' => 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999),
+            'personal_id' => '49506125111',
+            'balance' => rand(100,100000),
+        ]);
+            DB::table('customers')->insert([
+            'name' => 'Markas',
+            'surname' => 'Markaitis',
+            'iban' => 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999),
+            'personal_id' => '37012120007',
+            'balance' => 0.00,
+        ]);
+            DB::table('customers')->insert([
+            'name' => 'Bebras',
+            'surname' => 'Bebraitis',
+            'iban' => 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999),
+            'personal_id' => '38702141588',
+            'balance' => rand(100,100000),
+        ]);
+            DB::table('customers')->insert([
+            'name' => 'Bebras',
+            'surname' => 'Bebraitis',
+            'iban' => 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999),
+            'personal_id' => '37502141522',
+            'balance' => rand(100,100000),
+        ]);
+            DB::table('customers')->insert([
+            'name' => 'Tomas',
+            'surname' => 'Tomaitis',
+            'iban' => 'LT' . rand(40,60) . 35000 . rand(10000000000,99999999999),
+            'personal_id' => '38001211003',
+            'balance' => 0.00,
+        ]);
     }
 }
 }
