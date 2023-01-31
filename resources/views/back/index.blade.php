@@ -88,13 +88,13 @@
                     <button class="btn btn-delete" type="submit">Delete</button>
                     @csrf
                     @method('delete')
+                </form>
             </div>
         </div>
         @empty
         <div class="table1">No customers yet</div>
         @endforelse
     </div>
-    </form>
 
 </div>
 @if($perPageShow != 'all')
