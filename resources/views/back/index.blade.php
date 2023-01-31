@@ -12,6 +12,7 @@
 
                 <div class="flex">
 
+
                     {{-- Sort --}}
                     <div class="col-3">
                         <div class="mb-3">
@@ -24,6 +25,7 @@
                             </select>
                         </div>
                     </div>
+
 
                     {{-- Filter --}}
                     <div class="col-3">
@@ -52,18 +54,20 @@
                         </div>
                     </div>
 
+                    {{-- Buttons --}}
                     <div class="col-3">
                         <div class="buttons" style="margin-top: 12px">
                             <button type="submit" class="btn btn-light" style="margin-right: 5px">Show</button>
                             <a href="{{route('customers-index')}}" class="btn">Reset</a>
                         </div>
                     </div>
+
                 </div>
+            </form>
         </div>
     </div>
 </div>
 
-</form>
 
 <div class="container-alerts">
     <div>

@@ -25,6 +25,12 @@ class CustomerController extends Controller
 
         $customers = Customer::where('id', '>', 0);
 
+        $customers = match($request->filter ?? '') {
+            'balanceZero' => Customer::where('balance', '=', '0'),
+            'balanceNotZero' => Customer::where('balance', '>', '0'),
+            default => Customer::where('id', '>', 0)
+        };
+        
         $customers = match($request->sort ?? '') {
             'asc_name' => $customers->orderBy('name')->orderBy('surname'),
             'desc_name' => $customers->orderBy('name', 'desc')->orderBy('surname', 'desc'),
@@ -32,14 +38,8 @@ class CustomerController extends Controller
             'desc_surname' => $customers->orderBy('surname', 'desc')->orderBy('name', 'desc'),
             'asc_balance' => $customers->orderBy('balance'),
             'desc_balance' => $customers->orderBy('balance', 'desc'),
-            default => $customers->orderBy('surname')->orderBy('name')
-        };
-
-        $customers = match($request->filter ?? '') {
-            'balanceZero' => Customer::where('balance', '=', '0'),
-            'balanceNotZero' => Customer::where('balance', '>', '0'),
-            default => Customer::where('id', '>', 0)
-        };
+            default => $customers->orderBy('surname', 'desc')->orderBy('name', 'desc')
+            };
 
 
             if( $perPageShow == 'all') {

@@ -10,13 +10,12 @@ class Customer extends Model
     use HasFactory;
 
     const SORT = [
+        'asc_balance' => 'Balance 0-9',
+        'desc_balance' => 'Balance 9-0',
         'asc_name' => 'Name A-Z',
         'desc_name' => 'Name Z-A',
         'asc_surname' => 'Surname A-Z',
         'desc_surname' => 'Surname Z-A',
-        'asc_balance' => 'Balance 0-9',
-        'desc_balance' => 'Balance 9-0'
-
     ];
 
     const FILTER = [
