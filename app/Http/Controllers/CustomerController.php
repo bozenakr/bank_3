@@ -38,7 +38,7 @@ class CustomerController extends Controller
             'desc_surname' => $customers->orderBy('surname', 'desc')->orderBy('name', 'desc'),
             'asc_balance' => $customers->orderBy('balance'),
             'desc_balance' => $customers->orderBy('balance', 'desc'),
-            default => $customers->orderBy('surname', 'desc')->orderBy('name', 'desc')
+            default => $customers->orderBy('surname')->orderBy('name')
             };
 
 
